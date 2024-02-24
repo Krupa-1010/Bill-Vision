@@ -1,3 +1,5 @@
+
+
 let logo=document.getElementById("logo-pic");
 let inputFile=document.getElementById("input-file");
 
@@ -40,7 +42,7 @@ function updateTotal() {
     const rows = document.querySelectorAll('#bill-body tr');
     let total = 0;
     rows.forEach(row => {
-        total += parseFloat(row.cells[4].textContent.replace('Rs.', ''));
+        total += parseFloat(row.cells[4].textContent.replace('$', ''));
     });
     document.querySelector('#total-row strong').textContent = 'Total: $' + total.toFixed(2);
 }
@@ -54,3 +56,7 @@ function clearInputs() {
 
 document.getElementById('item-quantity').addEventListener('input', updatePrice);
 document.getElementById('item-rate').addEventListener('input', updatePrice);
+
+
+  
+       

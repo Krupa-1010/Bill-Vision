@@ -24,7 +24,7 @@ p{
     width: 300px;
     display: flex;
     margin-left: 474px;
-    margin-top: 130px;
+    margin-top: 225px;
     margin-right: 200px;
 
 }
@@ -69,6 +69,13 @@ th {
 }
 #store-name{
     width: 300px;
+    margin-left:334px;
+    height: 50px;
+    width: 453px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+    font-weight: 600;
 }
   /* Style for the table */
   #bill-table {
@@ -99,6 +106,7 @@ th {
 }
 .store-name {
     text-align: center;
+  
 }
 
 .store-details {
@@ -116,10 +124,32 @@ th {
 #address{
     width: 500px;
 }
-#store-name{
-    margin-left:334px;
-    text-align: center;
-    height: 50px;
-    width: 453px;
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.navbar{
+    width:100vw;
+    background-color: rgb(103, 201, 103);
+}
 
+.navbar-brand span{    
+    font-family: 'Lobster', cursive;
+}
+
+.navbar-brand:hover{
+    color:rgb(89, 207, 168);
+}
+
+.nav-link{
+    margin-right: 10px;
+    margin-left: 10px;
+    color: rgb(17, 114, 41);
+    text-transform:uppercase;
+    font-size: 18px;
+}
+
+.nav-link:hover{
+    color:white;
 }
