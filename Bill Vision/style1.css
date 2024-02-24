@@ -1,0 +1,113 @@
+
+h1{
+    text-align: center;
+}
+p{
+    text-align: center;
+}
+#logo-pic{
+    width: 153px;
+    margin-left: 60px;
+
+}
+.main{
+    background-color: aqua;
+    height: 800px;
+    width: 800px;
+    margin-left: 360px;
+    display:flex;
+}
+.hero{
+    margin-left: 500px;
+}
+.card{
+    width: 300px;
+    display: flex;
+    margin-left: 474px;
+
+}
+.card img{
+    display: flex;
+    justify-content: center;
+    width: 180px;
+    height: 180px;
+}
+input{
+    display: none;
+}
+.btn1{
+height: 45px;
+width: 35%;
+border: none;
+outline: none;
+padding-left:30px ;
+border-radius: 12px;
+background-color:rgb(248,26,92) ;
+color: white;
+font-weight: 70;
+cursor: pointer;
+margin-left: 85px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+}
+.bill-content-box {
+    border: 1px solid #ccc; /* Add border */
+    padding: 20px; /* Add padding for spacing */
+    margin-bottom: 20px; /* Add margin to separate from other elements */
+}
+#store-name{
+    width: 300px;
+}
+  /* Style for the table */
+  #bill-table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse the borders into a single border */
+}
+
+
+#bill-table thead th {
+    background-color: #f2f2f2; /* Light gray background */
+    border: 1px solid #dddddd; /* Gray border */
+    padding: 8px; /* Padding around header cells */
+    text-align: left; /* Align text to the left */
+}
+
+/* Style for table body rows */
+#bill-table tbody td {
+    border: 1px solid #dddddd; /* Gray border */
+    padding: 8px; /* Padding around cells */
+}
+
+/* Style for table footer */
+#bill-table tfoot td {
+    background-color: #f2f2f2; /* Light gray background */
+    border: 1px solid #dddddd; /* Gray border */
+    padding: 8px; /* Padding around cells */
+    font-weight: bold; 
+}
+.store-name {
+    text-align: center;
+}
+
+.store-details {
+    text-align: left;
+}
+
+.logo-card {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+#date{
+    width:500px;
+}
