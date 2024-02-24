@@ -8,13 +8,14 @@
     background-color: rgb(103, 201, 103);
 }
 
-.navbar-brand span{
-    
-font-family: 'Lobster', cursive;
+.navbar-brand span{    
+    font-family: 'Lobster', cursive;
 }
+
 .navbar-brand:hover{
     color:rgb(89, 207, 168);
 }
+
 .nav-link{
     margin-right: 10px;
     margin-left: 10px;
@@ -24,7 +25,7 @@ font-family: 'Lobster', cursive;
 }
 
 .nav-link:hover{
-    color:rgb(1, 248, 67)
+    color:white;
 }
 
 .main-heading{
@@ -40,50 +41,36 @@ font-family: 'Lobster', cursive;
 }
 
 .heading{
-    font-size: 25px;
+    font-size: 65px;
+    text-align: center;
     margin-left: 40px;
     margin-top: 70px;
-    font-family: Copperplate;
-  }
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #30722c;
+}
 
 .image{
     width: 30vw;
     height: 50vh;
     margin-right: 50px;
     margin-top: 30px;
-  }
+}
 
 .About{
     padding: 20px;
     margin-left: 30px;
 }
 
-  .heading{
-    font-size: 25px;
-    font-weight: bold;
-  }
+
+
 .ab1{
     margin-right:40vw;
 }
+
 .ab2{
     margin-left: 40vw;
 }
 
-.para1{
-    background: #111;
-    color: #fff;
-    padding: 15px 23px;
-    margin: 15px;
-    margin-left: 85px;
-}
-.para2{
-    background: #111;
-    color: #fff;
-    font-size: 18px;
-    padding: 15px 23px;
-    margin: 15px;
-    margin-right: 85px;
-}
 
 footer {
     background: rgb(103, 201, 103);
@@ -96,9 +83,9 @@ footer {
 
 .card:hover{
     box-shadow: -2px -1px 25px -4px rgba(0,0,0,0.75);
--webkit-box-shadow: -2px -1px 25px -4px rgba(0,0,0,0.75);
--moz-box-shadow: -2px -1px 25px -4px rgba(0,0,0,0.75);
-transition: 0.5s;
+    -webkit-box-shadow: -2px -1px 25px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -2px -1px 25px -4px rgba(0,0,0,0.75);
+    transition: 0.5s;
 }
 
 .card-title{
@@ -106,6 +93,18 @@ transition: 0.5s;
     font-weight: bold;
 }
 
+.para1{
+    color: #fff;
+    padding: 15px;   
+    margin-left: 85px;
+}
+.para2{
+    color: #fff;
+    font-size: 18px;
+    padding: 15px;
+    margin-right: 85px;
+}
+
 .main-container{
-    background-color: rgb(153, 214, 153);
+    background-color: white;
 }
