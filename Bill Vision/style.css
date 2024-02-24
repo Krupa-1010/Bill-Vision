@@ -84,3 +84,28 @@ font-family: 'Lobster', cursive;
     margin: 15px;
     margin-right: 85px;
 }
+
+footer {
+    background: rgb(103, 201, 103);
+}
+.copy{
+    padding: 15px 23px;
+    color: #fff;
+    text-align: center;
+}
+
+.card:hover{
+    box-shadow: -2px -1px 25px -4px rgba(0,0,0,0.75);
+-webkit-box-shadow: -2px -1px 25px -4px rgba(0,0,0,0.75);
+-moz-box-shadow: -2px -1px 25px -4px rgba(0,0,0,0.75);
+transition: 0.5s;
+}
+
+.card-title{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.main-container{
+    background-color: rgb(153, 214, 153);
+}
