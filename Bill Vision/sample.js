@@ -40,7 +40,7 @@ function updateTotal() {
     const rows = document.querySelectorAll('#bill-body tr');
     let total = 0;
     rows.forEach(row => {
-        total += parseFloat(row.cells[4].textContent.replace('$', ''));
+        total += parseFloat(row.cells[4].textContent.replace('Rs.', ''));
     });
     document.querySelector('#total-row strong').textContent = 'Total: $' + total.toFixed(2);
 }
