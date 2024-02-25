@@ -24,7 +24,7 @@
                   </a>
                 <ul class="navbar-nav m-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a class="nav-link" id='home' href="#Home">Home</a>
+                    <a class="nav-link" id='home' href="index.html">Home</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" id='bill' href="#Generate Bill">Generate Bill</a>
@@ -125,160 +125,172 @@
     <script>
         window.jsPDF = window.jspdf.jsPDF;
 
-        // Update logo when file input changes
-        document.getElementById("input-file").addEventListener("change", function() {
-            let logo = document.getElementById("logo-pic");
-            let inputFile = document.getElementById("input-file");
-            logo.src = URL.createObjectURL(inputFile.files[0]);
-        });
-        
+// Update logo when file input changes
+document.getElementById("input-file").addEventListener("change", function() {
+    let logo = document.getElementById("logo-pic");
+    let inputFile = document.getElementById("input-file");
+    logo.src = URL.createObjectURL(inputFile.files[0]);
+});
 
 
+// Update item price and total when input values change
+function updatePriceAndTotal() {
+    const itemQuantity = parseFloat(document.getElementById('item-quantity').value);
+    const itemRate = parseFloat(document.getElementById('item-rate').value);
+    // Check if input values are valid numbers
+    if (!isNaN(itemQuantity) && !isNaN(itemRate)) {
+        const totalPrice = itemRate * itemQuantity;
+        document.getElementById('item-price').value = totalPrice.toFixed(2);
+    } else {
+        document.getElementById('item-price').value = ''; // Reset item price if input values are not valid
+    }
 
-        
-        // Update item price and total when input values change
-        function updatePriceAndTotal() {
-            const itemQuantity = parseFloat(document.getElementById('item-quantity').value);
-            const itemRate = parseFloat(document.getElementById('item-rate').value);
-            // Check if input values are valid numbers
-            if (!isNaN(itemQuantity) && !isNaN(itemRate)) {
-                const totalPrice = itemRate * itemQuantity;
-                document.getElementById('item-price').value = totalPrice.toFixed(2);
-            } else {
-                document.getElementById('item-price').value = ''; // Reset item price if input values are not valid
-            }
-            
-            updateTotal(); // Update total cost
+    updateTotal(); // Update total cost
+}
+
+// Add item to the bill table
+document.getElementById('add-item-btn').addEventListener('click', function() {
+    updatePriceAndTotal(); // Update price and total before adding item
+    const itemName = document.getElementById('item-name').value;
+    const itemQuantity = parseFloat(document.getElementById('item-quantity').value);
+    const itemRate = parseFloat(document.getElementById('item-rate').value);
+
+    // Check if input values are valid numbers
+    if (!isNaN(itemQuantity) && !isNaN(itemRate)) {
+        const totalPrice = itemRate * itemQuantity;
+        const itemPrice = totalPrice; // Use total price directly
+
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${itemName}</td>
+            <td>${itemQuantity}</td>
+            <td>$${itemRate.toFixed(2)}</td>
+            <td>$${isNaN(itemPrice) ? '0.00' : itemPrice.toFixed(2)}</td>
+            <td>$${totalPrice.toFixed(2)}</td>
+        `;
+
+        const billBody = document.getElementById('bill-body');
+        billBody.appendChild(newRow);
+
+        updateTotal(); // Update total cost
+        clearInputs(); // Clear input fields
+    } else {
+        // Handle invalid input
+        alert('Please enter valid quantity and rate.');
+    }
+});
+
+// Update total cost
+function updateTotal() {
+    const rows = document.querySelectorAll('#bill-body tr');
+    let total = 0;
+    rows.forEach(row => {
+        total += parseFloat(row.cells[4].textContent.replace('$', ''));
+    });
+    document.querySelector('#total-row strong').textContent = 'Total: $' + total.toFixed(2);
+}
+
+// Clear input fields
+function clearInputs() {
+    document.getElementById('item-name').value = '';
+    document.getElementById('item-quantity').value = '';
+    document.getElementById('item-rate').value = '';
+    document.getElementById('item-price').value = '';
+}
+
+document.getElementById('generate-pdf-btn').addEventListener('click', function() {
+    var doc = new jsPDF();
+    var storeName = document.getElementById('store-name-input').value;
+    var date = document.getElementById('date').value;
+    var address = document.getElementById('address').value;
+
+    doc.setFont('times');
+    // Add store details
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const fontSize = 12; // Assuming font size is 12
+    const topMargin = 20; // Margin from the top of the page
+
+    // Calculate X-coordinate for centering horizontally
+    const textWidth = doc.getStringUnitWidth(storeName) * fontSize / doc.internal.scaleFactor;
+    const centerX = (pageWidth - textWidth) / 2;
+
+    // Use topMargin as the Y-coordinate
+    const topY = topMargin;
+
+    // Now you can use centerX and topY to position the text
+    doc.text('' + storeName, centerX, topY);
+    doc.text('Date: ' + date, 10, 30);
+    doc.text('Address: ' + address, 10, 40);
+
+    // Add image to the top right corner
+    var imgX = pageWidth - 60; // Adjust the X-coordinate as needed
+    var imgY = 10; // Adjust the Y-coordinate as needed
+    var imgWidth = 50; // Adjust the width as needed
+    var imgHeight = 50; // Adjust the height as needed
+    var imgUrl = "https://i.imgur.com/zZ8TVW5.jpeg"; // Replace "your_image.jpg" with the actual image filename or URL
+    doc.addImage(imgUrl, 'JPEG', imgX, imgY, imgWidth, imgHeight);
+
+    // Add table headers
+    var headers = ['Item', 'Quantity', 'Rate', 'Price', 'Total'];
+    var data = [];
+    var tableRowHeight = 10;
+
+    // Iterate through table rows to get item details
+    var tableRows = document.querySelectorAll('#bill-body tr');
+    tableRows.forEach(function(row) {
+        var itemName = row.cells[0].textContent;
+        var quantity = parseFloat(row.cells[1].textContent);
+        var rate = parseFloat(row.cells[2].textContent.replace('$', ''));
+        var price = parseFloat(row.cells[3].textContent.replace('$', ''));
+        var total = parseFloat(row.cells[4].textContent.replace('$', ''));
+
+        data.push([itemName, quantity, rate, price, total]);
+        tableRowHeight += 10;
+    });
+
+    const tableMargin = 20;
+
+    // Calculate the Y-coordinate where the table should start drawing
+    const tableStartY = topY + fontSize + tableMargin;
+
+    // Add table to the PDF document
+    doc.autoTable({
+        head: [headers],
+        body: data,
+        startY: tableStartY // Use the calculated Y-coordinate
+    });
+
+    // Add total price
+    var totalText = document.querySelector('#total-row strong').textContent;
+    var totalValue = parseFloat(totalText.replace('Total: $', ''));
+
+    // Calculate the Y-coordinate for the total text
+    const totalY = tableStartY + data.length * 10 + 10; // Adjust 10 for padding
+
+    // Add total text to the PDF
+    doc.text('Total: $' + totalValue.toFixed(2), 10, totalY);
+
+    // Save the PDF
+    doc.save('bill.pdf');
+});
+
+// Listen for input changes to update price and total
+document.getElementById('item-quantity').addEventListener('input', updatePriceAndTotal);
+document.getElementById('item-rate').addEventListener('input', updatePriceAndTotal);
+
+document.addEventListener('DOMContentLoaded', function() {
+        // Function to navigate to index2.html
+        function navigateToIndex2() {
+            window.location.href = 'index.html';
         }
 
-        // Add item to the bill table
-        document.getElementById('add-item-btn').addEventListener('click', function() {
-            updatePriceAndTotal(); // Update price and total before adding item
-            const itemName = document.getElementById('item-name').value;
-            const itemQuantity = parseFloat(document.getElementById('item-quantity').value);
-            const itemRate = parseFloat(document.getElementById('item-rate').value);
-
-            // Check if input values are valid numbers
-            if (!isNaN(itemQuantity) && !isNaN(itemRate)) {
-                const totalPrice = itemRate * itemQuantity;
-                const itemPrice = totalPrice; // Use total price directly
-
-                const newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                    <td>${itemName}</td>
-                    <td>${itemQuantity}</td>
-                    <td>$${itemRate.toFixed(2)}</td>
-                    <td>$${isNaN(itemPrice) ? '0.00' : itemPrice.toFixed(2)}<
-                    <td>$${totalPrice.toFixed(2)}</td>
-                `;
-
-                const billBody = document.getElementById('bill-body');
-                billBody.appendChild(newRow);
-
-                updateTotal(); // Update total cost
-                clearInputs(); // Clear input fields
-            } else {
-                // Handle invalid input
-                alert('Please enter valid quantity and rate.');
-            }
+        // Event listener for the "Alert" link in the navbar
+        document.getElementById('home').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the link
+            navigateToIndex2();
         });
-
-        // Update total cost
-        function updateTotal() {
-            const rows = document.querySelectorAll('#bill-body tr');
-            let total = 0;
-            rows.forEach(row => {
-                total += parseFloat(row.cells[4].textContent.replace('$', ''));
-            });
-            document.querySelector('#total-row strong').textContent = 'Total: $' + total.toFixed(2);
-        }
-
-        // Clear input fields
-        function clearInputs() {
-            document.getElementById('item-name').value = '';
-            document.getElementById('item-quantity').value = '';
-            document.getElementById('item-rate').value = '';
-            document.getElementById('item-price').value = '';
-        }
-
-
-       
-
-        document.getElementById('generate-pdf-btn').addEventListener('click', function() {
-            var doc = new jsPDF();
-            var storeName = document.getElementById('store-name-input').value;
-            var date = document.getElementById('date').value;
-            var address = document.getElementById('address').value;
-
-            doc.setFont('times');
-            // Add store details
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const fontSize = 12; // Assuming font size is 12
-            const topMargin = 20; // Margin from the top of the page
-
-            // Calculate X-coordinate for centering horizontally
-            const textWidth = doc.getStringUnitWidth(storeName) * fontSize / doc.internal.scaleFactor;
-            const centerX = (pageWidth - textWidth) / 2;
-
-            // Use topMargin as the Y-coordinate
-            const topY = topMargin;
-
-            // Now you can use centerX and topY to position the text
-            doc.text('' + storeName, centerX, topY);
-            doc.text('Date: ' + date, 10, 30);
-            doc.text('Address: ' + address, 10, 40);
-
-            // Add table headers
-            var headers = ['Item', 'Quantity', 'Rate', 'Price', 'Total'];
-            var data = [];
-            var tableRowHeight = 10;
-
-            // Iterate through table rows to get item details
-            var tableRows = document.querySelectorAll('#bill-body tr');
-            tableRows.forEach(function(row) {
-                var itemName = row.cells[0].textContent;
-                var quantity = parseFloat(row.cells[1].textContent);
-                var rate = parseFloat(row.cells[2].textContent.replace('$', ''));
-                var price = parseFloat(row.cells[3].textContent.replace('$', ''));
-                var total = parseFloat(row.cells[4].textContent.replace('$', ''));
-
-                data.push([itemName, quantity, rate, price, total]);
-                tableRowHeight += 10;
-            });
-
-            const tableMargin = 20;
-
-            // Calculate the Y-coordinate where the table should start drawing
-            const tableStartY = topY + fontSize + tableMargin;
-
-            // Add table to the PDF document
-            doc.autoTable({
-                head: [headers],
-                body: data,
-                startY: tableStartY // Use the calculated Y-coordinate
-            });
-
-            // Add total price
-            var totalText = document.querySelector('#total-row strong').textContent;
-            var totalValue = parseFloat(totalText.replace('Total: $', ''));
-
-            // Calculate the Y-coordinate for the total text
-            const totalY = tableStartY + data.length * 10 + 10; // Adjust 10 for padding
-
-            // Add total text to the PDF
-            doc.text('Total: $' + totalValue.toFixed(2), 10, totalY);
-
-            // Save the PDF
-            doc.save('bill.pdf');
-        });
-
-        // Listen for input changes to update price and total
-        document.getElementById('item-quantity').addEventListener('input', updatePriceAndTotal);
-        document.getElementById('item-rate').addEventListener('input', updatePriceAndTotal);
-
-        
-   
-    </script>
+    });
+</script>
        
 </body>
 </html>
