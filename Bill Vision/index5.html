@@ -20,7 +20,7 @@
             <input type="txt" name="phoneno" placeholder="PhoneNo" id="password" />
             <input type="password" name="password" placeholder="Password" id="password" />
             <input type="Confirm password" name="password" placeholder="Confirm Password" id="password" />
-            <button>Sign In</button>
+            <button id='signInButton'>Sign In</button>
             </form>
           </div>
          <!-- <div class="card_terms">
@@ -28,5 +28,20 @@
           </div>-->
         </div>
       </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Function to navigate to index.html
+        function navigateToIndex() {
+            window.location.href = 'index.html';
+        }
+
+        // Event listener for the "Sign In" button
+        document.getElementById('signInButton').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the button
+            navigateToIndex();
+        });
+    });
+      </script>
 </body>
 </html>

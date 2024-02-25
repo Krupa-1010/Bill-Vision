@@ -41,7 +41,7 @@
                     <a class="nav-link" href="#Contact">Contact</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#Login/signup">Login/signup</a>
+                    <a class="nav-link" id='login' href="#Login/signup">Login/signup</a>
                   </li>
                 </ul>
             </div>
@@ -111,21 +111,43 @@
        </section>
         </div>
         <div>
-        <section class="Contact" id="Contact">
-          <div>
-              <footer class="footer">
-                <div class="d-flex flex-row justify-content-between">
+            <section class="Contact" id="Contact">
+              <div>
+                  <footer class="footer">
+                    <div class="d-flex flex-row justify-content-between">
+                      <div class="para1">
+                          <p>Billing Accounting &
+                            Inventory software for small
+                            business owners in India</p>
+                            <p>Phone
+                              <br>
+                              +91-9003-011-000
+                              <br>
+                              +91-6006-027-000</p>
+                              <p>Email
+                                <br>
+                                Support
+                                <br>
+                                support@billvision.in</p>
+                      </div>
+                      <div>
+                        <p class="para2">Address
+                          <br>
+                          24th 1,2 & 3rd Floor, 150/2 Gandhi street
+                          <br>
+                          Bengaluru, Karnataka, 560102</p>
+                      </div>
+                  </div>
+                    <div class="copy">
+                      <span class="footer-title">BillVision</span>
+                      <p>Copyright @2024 <a href="#"> CodeCrew </a> All Rights Reserved</p>
+                    </div>
+                    
+                    </footer>
+                    
               </div>
-                <div class="copy">
-                  <span class="footer-title">BillVision</span>
-                  <p>Copyright @2024 <a href="#"> CodeCrew </a> All Rights Reserved</p>
-                </div>
-                
-                </footer>
-                
-          </div>
-     </section>
-    </div>
+         </section>
+        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -136,6 +158,19 @@
 
         // Event listener for the "Alert" link in the navbar
         document.getElementById('bill').addEventListener('click', function(event) {
+            event.preventDefault();  // Prevent the default behavior of the link
+            navigateToIndex2();
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to navigate to index2.html
+        function navigateToIndex2() {
+            window.location.href = 'index5.html';
+        }
+
+        // Event listener for the "Alert" link in the navbar
+        document.getElementById('login').addEventListener('click', function(event) {
             event.preventDefault();  // Prevent the default behavior of the link
             navigateToIndex2();
         });
